@@ -57,15 +57,18 @@ def receiveFile(TCPClientSocket):
 
         print("texto recebido: " + receivedText)
 
-        # se não recebeu a flag de fim de transmissão, continua escrevendo no arquivo
-        if (receivedText != END_TRANSMISSION_FLAG):
-            file.write(receivedText)
+        receivedEndFlag = False
 
-            # envia a confirmação de recebimento da linha
-            TCPClientSocket.send(CONFIRMATION_MESSAGE.encode())
-            continue
+        # se recebeu a flag, remove ela da string
+        if (END_TRANSMISSION_FLAG in receivedText):
+            receivedText = receivedText.replace(END_TRANSMISSION_FLAG, '')
+            receivedEndFlag = True
 
-        break
+        file.write(receivedText)
+
+        # se recebeu a flag, finaliza o loop
+        if (receivedEndFlag):
+            break
 
     endTime = time.time()
 
