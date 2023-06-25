@@ -1,11 +1,10 @@
-import socket, sys
+import socket, sys, time
 from threading import Thread
 
 HOST = '127.0.0.1' # endereço IP
 PORT = 8008        # Porta utilizada pelo servidor
 BUFFER_SIZE = 1024 # tamanho do buffer para recepção dos dados
 END_TRANSMISSION_FLAG = 'Transmissão finalizada!'
-CONFIRMATION_MESSAGE = 'ok'
 
 def getFilePath(receivedText):
     if (receivedText == '1'):
@@ -38,17 +37,7 @@ def handleNewClientSocket(TCPClientSocket,addr):
                 for line in file:
                     print("\nenviando a linha: " + line)
                     TCPClientSocket.send(line.encode())
-
-                    print("aguardando confirmação de recebimento...")
-                    confirmationData = TCPClientSocket.recv(BUFFER_SIZE)
-
-                    confirmationText = confirmationData.decode('utf-8')
-
-                    if (confirmationText != CONFIRMATION_MESSAGE):
-                        print("Erro ao enviar a linha: " + line)
-                        break
-
-                    print("confirmação recebida!")
+                    time.sleep(0.0000000000001)
 
             file.close()
 

@@ -5,7 +5,6 @@ HOST = '127.0.0.1'  # endereço IP
 PORT = 8008         # Porta utilizada pelo servidor
 BUFFER_SIZE = 20000  # tamanho do buffer para recepção dos dados
 END_TRANSMISSION_FLAG = 'Transmissão finalizada!'
-CONFIRMATION_MESSAGE = 'ok'
 
 def getReceivedFilePath(fileSize):
     if (fileSize == '1'):
